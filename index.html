@@ -15,7 +15,7 @@
     body {
       font-family: Arial, sans-serif;
       display: flex;
-      height: 100vh;
+      min-height: 100vh;
       background: #f4f4f4;
     }
 
@@ -38,31 +38,39 @@
       position: relative;
     }
 
-    /* Fondo diagonal con logos separados */
+    /* Fondo con logos tipo sello de agua */
     #content::before {
       content: "";
       position: absolute;
       inset: 0;
+
       background-image:
         url("logobn.png"),
         url("logobn.png");
+
       background-repeat:
         repeat,
         repeat;
+
+      /* tamaño del logo */
       background-size:
-        140px,
-        140px;
+        140px 140px,
+        140px 140px;
+
+      /* separación + diagonal */
       background-position:
         0 0,
-        180px 180px;
-      opacity: 0.06;
+        220px 220px;
+
+      opacity: 0.04; /* más suave para no tapar cards */
       z-index: 0;
       pointer-events: none;
     }
 
+    /* contenido por encima del fondo */
     #content > * {
       position: relative;
-      z-index: 1;
+      z-index: 2;
     }
 
     h1 {
@@ -75,6 +83,7 @@
       color: #444;
     }
 
+    /* GRID DE CARDS */
     .card-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
@@ -121,6 +130,7 @@
       color: #d62828;
     }
 
+    /* COMBOBOX */
     label {
       display: block;
       margin-bottom: 10px;
@@ -137,6 +147,7 @@
       outline: none;
     }
 
+    /* CARD DE SERVICIOS */
     .service-card {
       margin-top: 25px;
       background: white;
@@ -159,10 +170,10 @@
       line-height: 1.8;
     }
 
+    /* RESPONSIVE */
     @media (max-width: 768px) {
       body {
         flex-direction: column;
-        height: auto;
       }
 
       #sidebar {
@@ -178,28 +189,53 @@
       .card-grid {
         grid-template-columns: 1fr;
       }
+
+      #content::before {
+        background-size:
+          100px 100px,
+          100px 100px;
+
+        background-position:
+          0 0,
+          160px 160px;
+      }
     }
   </style>
 </head>
 <body>
 
+  <!-- SIDEBAR -->
   <div id="sidebar">
+
     <div style="text-align:center; margin-bottom:25px;">
       <img
         src="logo.png"
         alt="Logo Círculo de Emprendedores"
         onclick="loadHome()"
-        style="width:120px; height:auto; margin-bottom:15px; cursor:pointer;"
+        style="
+          width:120px;
+          height:auto;
+          margin-bottom:15px;
+          cursor:pointer;
+        "
       >
 
-      <h2 onclick="loadHome()" style="cursor:pointer;">
+      <h2
+        onclick="loadHome()"
+        style="cursor:pointer;"
+      >
         CÍRCULO DE EMPRENDEDORES
       </h2>
     </div>
 
-    <label for="categoriaSelect">Selecciona una categoría:</label>
+    <label for="categoriaSelect">
+      Selecciona una categoría:
+    </label>
 
-    <select id="categoriaSelect" onchange="loadCategory(this.value)">
+    <select
+      id="categoriaSelect"
+      onchange="loadCategory(this.value)"
+    >
       <option value="">-- Elegir categoría --</option>
       <option value="comida">🍽️ Comida y Restaurantes</option>
       <option value="salud">🏥 Salud y Bienestar</option>
@@ -210,6 +246,7 @@
 
     <div class="service-card">
       <h3>Formaliza tu Negocio Hoy</h3>
+
       <div class="service-list">
         ✅ Inicio de actividades en SII<br>
         ✅ Servicios contables<br>
@@ -220,8 +257,10 @@
         ✅ Oportunidades de financiamiento
       </div>
     </div>
+
   </div>
 
+  <!-- CONTENT -->
   <div id="content">
     <h1>Círculo de Emprendedores</h1>
     <p>Selecciona una categoría para ver los comercios.</p>
