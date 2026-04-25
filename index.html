@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CÍRCULO DE EMPRENDEDORES</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      height: 100vh;
+      background: #f4f4f4;
+    }
+
+    /* =========================
+       SIDEBAR IZQUIERDO
+    ========================== */
+    #sidebar {
+  width: 320px;
+  min-width: 320px;
+  background: linear-gradient(to bottom, #0b3d91, #002b6b);
+  color: white;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+    /* =========================
+       CONTENIDO DERECHO
+    ========================== */
+    #content {
+      flex: 1;
+      padding: 25px;
+      overflow-y: auto;
+      background: #ffffff;
+    }
+
+    h1 {
+      margin-bottom: 10px;
+      color: #0b3d91;
+    }
+
+    p {
+      margin-bottom: 20px;
+      color: #444;
+    }
+
+    /* =========================
+       GRID DE TARJETAS
+    ========================== */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 12px;
+      padding: 15px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.12);
+      border-top: 4px solid #d62828;
+      transition: 0.2s;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 6px 14px rgba(0,0,0,0.18);
+    }
+
+    .card img {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin-bottom: 10px;
+    }
+
+    .card-title {
+      font-size: 18px;
+      font-weight: bold;
+      color: #0b3d91;
+      margin-bottom: 10px;
+    }
+
+    .card-text {
+      margin-top: 6px;
+      font-size: 14px;
+      color: #333;
+      line-height: 1.5;
+    }
+
+    .card-text strong {
+      color: #d62828;
+    }
+
+    /* =========================
+       COMBOBOX
+    ========================== */
+    label {
+      display: block;
+      margin-bottom: 10px;
+      font-weight: bold;
+      color: white;
+    }
+
+    select {
+      width: 100%;
+      padding: 12px;
+      border-radius: 8px;
+      border: none;
+      font-size: 15px;
+      outline: none;
+    }
+
+    /* =========================
+       CARD DE SERVICIOS
+    ========================== */
+    .service-card {
+      margin-top: 25px;
+      background: white;
+      border-radius: 12px;
+      padding: 18px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+      border-left: 5px solid #d62828;
+    }
+
+    .service-card h3 {
+      margin-bottom: 15px;
+      color: #0b3d91;
+      font-size: 18px;
+      text-align: center;
+    }
+
+    .service-list {
+      font-size: 14px;
+      color: #1e293b;
+      line-height: 1.8;
+    }
+
+/* AGREGA ESTO AL FINAL DE TU <style> */
+
+/* =========================
+   RESPONSIVE PARA MÓVILES
+========================= */
+@media (max-width: 768px) {
+
+  body {
+    flex-direction: column;
+    height: auto;
+  }
+
+  /* Sidebar arriba */
+  #sidebar {
+    width: 100%;
+    min-width: 100%;
+    padding: 20px;
+    overflow: visible;
+  }
+
+  /* Contenido abajo */
+  #content {
+    width: 100%;
+    padding: 20px;
+  }
+
+  /* Cards más cómodas */
+  .card-grid {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+
+  .card {
+    width: 100%;
+  }
+
+  /* Logo más pequeño */
+  #sidebar img {
+    width: 90px !important;
+  }
+
+  /* Texto principal */
+  h1 {
+    font-size: 24px;
+  }
+
+  /* Select más cómodo en móvil */
+  select {
+    font-size: 16px;
+    padding: 14px;
+  }
+
+  /* Card de servicios */
+  .service-card {
+    margin-top: 20px;
+    padding: 16px;
+  }
+
+  .service-card h3 {
+    font-size: 16px;
+  }
+
+  .service-list {
+    font-size: 14px;
+    line-height: 1.7;
+  }
+}
+  </style>
+</head>
+<body>
+
+  <!-- SIDEBAR IZQUIERDO -->
+  <div id="sidebar">
+
+<div style="text-align: center; margin-bottom: 25px;">
+
+  <img
+    src="logo.png"
+    alt="Logo Círculo de Emprendedores"
+    onclick="loadHome()"
+    style="
+      width: 120px;
+      height: auto;
+      margin-bottom: 15px;
+      border-radius: 10px;
+      cursor: pointer;
+    "
+  >
+
+  <h2
+    onclick="loadHome()"
+    style="
+      margin: 0;
+      font-size: 20px;
+      color: white;
+      cursor: pointer;
+    "
+  >
+    CÍRCULO DE EMPRENDEDORES
+  </h2>
+
+</div>
+
+    <!-- COMBOBOX -->
+    <label for="categoriaSelect">
+      Selecciona una categoría:
+    </label>
+
+    <select 
+      id="categoriaSelect"
+      onchange="loadCategory(this.value)"
+    >
+      <option value="">-- Elegir categoría --</option>
+      <option value="comida">🍽️ Comida y Restaurantes</option>
+      <option value="salud">🏥 Salud y Bienestar</option>
+      <option value="mecanica">🔧 Mecánica y Automotriz</option>
+      <option value="tecnologia">💻 Tecnología</option>
+      <option value="hogar">🏠 Hogar y Servicios</option>
+    </select>
+
+    <!-- CARD DE SERVICIOS -->
+    <div class="service-card">
+      <h3>Formaliza tu Negocio Hoy</h3>
+
+      <div class="service-list">
+        ✅ Inicio de actividades en SII<br>
+        ✅ Servicios contables<br>
+        ✅ Facturación electrónica<br>
+        ✅ Implementación ERP y CRM<br>
+        ✅ Diseño web y e-commerce<br>
+        ✅ Gestión de permisos<br>
+        ✅ Oportunidades de financiamiento
+      </div>
+    </div>
+
+  </div>
+
+  <!-- CONTENIDO DERECHO -->
+  <div id="content">
+    <h1>Círculo de Emprendedores</h1>
+    <p>Selecciona una categoría para ver los comercios.</p>
+  </div>
+
+  <script>
+    const data = {
+      comida: [
+        {
+          nombre: "Sabor Casero",
+          img: "https://via.placeholder.com/300x200",
+          productos: "Comida rápida, empanadas, almuerzos",
+          direccion: "Av. Chile 123, Santiago",
+          contacto: "+56 9 1234 5678"
+        },
+        {
+          nombre: "Don Pan Pizza",
+          img: "https://via.placeholder.com/300x200",
+          productos: "Pizzas artesanales, delivery",
+          direccion: "Av. Las Torres 55, Quilicura",
+          contacto: "+56 9 9876 5432"
+        }
+      ],
+
+      salud: [
+        {
+          nombre: "Centro Kinesiológico Movilfit",
+          img: "https://via.placeholder.com/300x200",
+          productos: "Kinesiología, masajes, recuperación física",
+          direccion: "Calle Salud 90, Providencia",
+          contacto: "+56 2 555 1234"
+        }
+      ],
+
+      mecanica: [
+        {
+          nombre: "Taller Mecánico PowerCar",
+          img: "https://via.placeholder.com/300x200",
+          productos: "Mecánica general, scanner, frenos",
+          direccion: "Av. La Industria 400, Colina",
+          contacto: "+56 9 2222 1111"
+        }
+      ],
+
+      tecnologia: [
+        {
+          nombre: "TecnoPlus",
+          img: "https://via.placeholder.com/300x200",
+          productos: "Computación, redes, soporte técnico",
+          direccion: "Mall Tech Center, Local 18",
+          contacto: "+56 9 3344 5566"
+        }
+      ],
+
+      hogar: [
+        {
+          nombre: "Gas Express 24H",
+          img: "https://via.placeholder.com/300x200",
+          productos: "Gas domiciliario a toda hora",
+          direccion: "Renca 1200",
+          contacto: "+56 9 9988 7766"
+        }
+      ]
+    };
+
+    function loadCategory(cat) {
+      const content = document.getElementById("content");
+
+      if (!cat) {
+        loadHome();
+        return;
+      }
+
+      const items = data[cat] || [];
+
+      content.innerHTML = `<h1>${cat.toUpperCase()}</h1>`;
+
+      let html = '<div class="card-grid">';
+
+      items.forEach(item => {
+        html += `
+          <div class="card">
+            <img src="${item.img}" alt="${item.nombre}">
+            <div class="card-title">${item.nombre}</div>
+            <div class="card-text"><strong>Productos:</strong> ${item.productos}</div>
+            <div class="card-text"><strong>Dirección:</strong> ${item.direccion}</div>
+            <div class="card-text"><strong>Contacto:</strong> ${item.contacto}</div>
+          </div>
+        `;
+      });
+
+      html += '</div>';
+      content.innerHTML += html;
+    }
+
+    function loadHome() {
+      document.getElementById("content").innerHTML = `
+        <h1>Círculo de Emprendedores</h1>
+        <p>Selecciona una categoría para ver los comercios.</p>
+      `;
+    }
+  </script>
+
+</body>
+</html>
