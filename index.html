@@ -83,14 +83,15 @@
       gap: 20px;
     }
 
-    .card {
-      background: white;
-      border-radius: 12px;
-      padding: 15px;
-      box-shadow: 0 3px 10px rgba(0,0,0,0.12);
-      border-top: 4px solid #d62828;
-      transition: 0.2s;
-    }
+  .card {
+  background: rgba(255, 255, 255, 0.92); /* antes era white */
+  border-radius: 12px;
+  padding: 15px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.12);
+  border-top: 4px solid #d62828;
+  transition: 0.2s;
+  backdrop-filter: blur(2px);
+}
 
     .card:hover {
       transform: translateY(-4px);
