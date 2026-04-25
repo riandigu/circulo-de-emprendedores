@@ -36,41 +36,26 @@
       overflow-y: auto;
       background-color: #ffffff;
       position: relative;
+      z-index: 1;
     }
 
-    /* Fondo con logos tipo sello de agua */
+    /* Fondo sello de agua */
     #content::before {
       content: "";
       position: absolute;
-      inset: 0;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
 
-      background-image:
-        url("logobn.png"),
-        url("logobn.png");
+      background-image: url("logobn.png");
+      background-repeat: repeat;
+      background-size: 140px;
+      background-position: 0 0;
 
-      background-repeat:
-        repeat,
-        repeat;
-
-      /* tamaño del logo */
-      background-size:
-        140px 140px,
-        140px 140px;
-
-      /* separación + diagonal */
-      background-position:
-        0 0,
-        220px 220px;
-
-      opacity: 0.04; /* más suave para no tapar cards */
-      z-index: 0;
+      opacity: 0.03;
+      z-index: -1;
       pointer-events: none;
-    }
-
-    /* contenido por encima del fondo */
-    #content > * {
-      position: relative;
-      z-index: 2;
     }
 
     h1 {
@@ -189,16 +174,6 @@
       .card-grid {
         grid-template-columns: 1fr;
       }
-
-      #content::before {
-        background-size:
-          100px 100px,
-          100px 100px;
-
-        background-position:
-          0 0,
-          160px 160px;
-      }
     }
   </style>
 </head>
@@ -220,10 +195,7 @@
         "
       >
 
-      <h2
-        onclick="loadHome()"
-        style="cursor:pointer;"
-      >
+      <h2 onclick="loadHome()" style="cursor:pointer;">
         CÍRCULO DE EMPRENDEDORES
       </h2>
     </div>
@@ -232,10 +204,7 @@
       Selecciona una categoría:
     </label>
 
-    <select
-      id="categoriaSelect"
-      onchange="loadCategory(this.value)"
-    >
+    <select id="categoriaSelect" onchange="loadCategory(this.value)">
       <option value="">-- Elegir categoría --</option>
       <option value="comida">🍽️ Comida y Restaurantes</option>
       <option value="salud">🏥 Salud y Bienestar</option>
@@ -280,9 +249,36 @@
         return;
       }
 
-      document.getElementById("content").innerHTML = `
+      const content = document.getElementById("content");
+
+      content.innerHTML = `
         <h1>${cat.toUpperCase()}</h1>
-        <p>Aquí aparecerán las cards de la categoría seleccionada.</p>
+
+        <div class="card-grid">
+
+          <div class="card">
+            <img src="https://via.placeholder.com/300x200" alt="">
+            <div class="card-title">Empresa Ejemplo 1</div>
+            <div class="card-text">
+              <strong>Servicios:</strong> Atención comercial
+            </div>
+            <div class="card-text">
+              <strong>Dirección:</strong> Santiago Centro
+            </div>
+          </div>
+
+          <div class="card">
+            <img src="https://via.placeholder.com/300x200" alt="">
+            <div class="card-title">Empresa Ejemplo 2</div>
+            <div class="card-text">
+              <strong>Servicios:</strong> Soluciones empresariales
+            </div>
+            <div class="card-text">
+              <strong>Dirección:</strong> Providencia
+            </div>
+          </div>
+
+        </div>
       `;
     }
   </script>
